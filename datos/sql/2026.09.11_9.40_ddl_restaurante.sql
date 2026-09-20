@@ -80,5 +80,15 @@ create table reservas(
     constraint fk_reservas_estados foreign key(estado) references estado_reserva (id_estado)
 ) comment = 'Tabla para guardar las reservas de los clientes en los restaurantes';
 
+create table mesas(
+    id_mesa integer auto_increment,
+    restaurante integer not null,
+    numero char(5) not null,
+    capacidad integer not null,
 
--- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au 
+    constraint pk_mesas primary key (id_mesa),
+    constraint fk_mesas_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes)
+) comment = 'Tabla para guardar las mesas de los restaurantes';
+
+
+-- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gi

@@ -110,4 +110,4 @@ create table trabajadores(
 ) comment = 'Tabla para guardar los trabajadores de los restaurantes';
 
 
--- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gigits
+-- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gigitss

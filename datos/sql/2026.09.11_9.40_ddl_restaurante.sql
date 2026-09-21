@@ -82,13 +82,32 @@ create table reservas(
 
 create table mesas(
     id_mesa integer auto_increment,
-    restaurante integer not null,
-    numero char(5) not null,
+    tamano varchar(20) not null,
     capacidad integer not null,
+    estado char(1) not null,
+    restaurante integer not null,
+    numero_mesa char(5) not null,
 
     constraint pk_mesas primary key (id_mesa),
     constraint fk_mesas_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes)
 ) comment = 'Tabla para guardar las mesas de los restaurantes';
 
+create table trabajadores(
+    id_trabajador integer auto_increment,
+    nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    fecha_nacimiento date not null,
+    nacionalidad integer not null,
+    direccion integer not null,
+    telefono char(12) not null,
+    email varchar(50) not null,
+    restaurante integer not null,
 
--- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gi
+    constraint pk_trabajadores primary key (id_trabajador),
+    constraint fk_trabajadores_paises foreign key(nacionalidad) references paises (id_pais),
+    constraint fk_trabajadores_direcciones foreign key(direccion) references direcciones (id_direccion),
+    constraint fk_trabajadores_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes)
+) comment = 'Tabla para guardar los trabajadores de los restaurantes';
+
+
+-- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gigit

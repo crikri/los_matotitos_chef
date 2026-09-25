@@ -133,3 +133,23 @@ create table trabajadores(
 
 
 -- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gigits
+
+create table horarios(
+    id_horario integer auto_increment,
+    dia_semana char(10) not null,
+    hora_inicio time not null,
+    hora_termino time not null,
+
+    constraint pk_horarios primary key (id_horario)
+) comment = 'Tabla para guardar los horarios de atención de los restaurantes';
+
+create table restaurantes_horarios(
+    id_restaurante_horario integer auto_increment,
+    restaurante integer not null,
+    horario integer not null,
+
+    constraint pk_restaurantes_horarios primary key (id_restaurante_horario),
+    constraint fk_restaurantes_horarios_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes),
+    constraint fk_restaurantes_horarios_horarios foreign key(horario) references horarios (id_horario)
+) comment = 'Tabla para guardar la relación de los horarios con los restaurantes';
+

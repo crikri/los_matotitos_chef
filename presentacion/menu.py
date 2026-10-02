@@ -1,5 +1,5 @@
 import sys
-from datos.auxiliar import nombre_app, version_app, menu_principal
+from datos.auxiliar import nombre_app, version_app
 
 def menu_principal():
     print(f"{nombre_app} {version_app}")

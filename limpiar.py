@@ -1,26 +1,32 @@
-import re
+import os
 
-def sanitizar_codigo(archivo_origen, archivo_destino):
-    with open(archivo_origen, 'r', encoding='utf-8', errors='replace') as f:
-        codigo = f.read()
+def limpiar_archivo(origen, destino):
+    # Lee el archivo en modo binario para eliminar cualquier byte nulo o caracter no ASCII visible
+    with open(origen, "rb") as f:
+        contenido = f.read()
 
-    # 1. Quitar la marca de orden de bytes (BOM) si existe
-    codigo = codigo.lstrip('\ufeff')
+    # Si venía en UTF-16 con BOM o bytes nulos
+    if b"\x00" in contenido:
+        # Intentar decodificar como utf-16
+        try:
+            texto = contenido.decode("utf-16")
+        except Exception:
+            texto = contenido.replace(b"\x00", b"").decode("utf-8", errors="ignore")
+    else:
+        try:
+            texto = contenido.decode("utf-8")
+        except Exception:
+            texto = contenido.decode("latin-1", errors="ignore")
 
-    # 2. Reemplazar espacios invisibles y no rompibles por espacios normales
-    codigo = re.sub(r'[\u00a0\u202f\u2007\u3000]', ' ', codigo)
+    # Limpiar retornos de carro problemáticos y normalizar saltos de línea
+    lineas = texto.splitlines()
+    texto_limpio = "\n".join(linea.rstrip() for linea in lineas) + "\n"
 
-    # 3. Eliminar caracteres de ancho cero
-    codigo = re.sub(r'[\u200b\u200c\u200d\u2060\ufeff]', '', codigo)
+    # Guardar en UTF-8 estándar
+    with open(destino, "w", encoding="utf-8", newline="\n") as f:
+        f.write(texto_limpio)
 
-    # 4. Convertir comillas curvas tipográficas en comillas estándar de código
-    codigo = re.sub(r'[“”„«»]', '"', codigo)
-    codigo = re.sub(r'[‘’`´]', "'", codigo)
+    print(f"¡Listo! Se guardó '{destino}' totalmente limpio.")
 
-    with open(archivo_destino, 'w', encoding='utf-8') as f:
-        f.write(codigo)
-
-    print(f"Listo: Se generó '{archivo_destino}' sin caracteres raros.")
-
-# Ruta exacta donde está tu archivo en la carpeta 'datos':
-sanitizar_codigo('datos/models.py', 'datos/models_limpio.py')
+# Ejecutar sobre models.py
+limpiar_archivo("datos/models.py", "datos/models_limpio.py")

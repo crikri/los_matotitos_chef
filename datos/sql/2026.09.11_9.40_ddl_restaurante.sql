@@ -132,6 +132,7 @@ create table trabajadores(
 ) comment = 'Tabla para guardar los trabajadores de los restaurantes';
 
 
+<<<<<<< HEAD
 -- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gigits
 
 create table horarios(
@@ -153,3 +154,6 @@ create table restaurantes_horarios(
     constraint fk_restaurantes_horarios_horarios foreign key(horario) references horarios (id_horario)
 ) comment = 'Tabla para guardar la relación de los horarios con los restaurantes';
 
+=======
+-- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gigitss
+>>>>>>> d9fcc5ff48ae6f06c2b723bf6ad89dc42b5d4885

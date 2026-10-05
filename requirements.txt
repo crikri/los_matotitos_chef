@@ -7,3 +7,4 @@ pwinput==1.0.3
 PyMySQL==1.2.3
 rut-chile==2.0.1
 python-decouple==3.8
+prettytable==3.17.0

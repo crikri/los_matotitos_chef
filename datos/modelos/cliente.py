@@ -2,9 +2,11 @@ from datos.conexion import conectar_db
 from peewee import Model, CharField, IntegerField, AutoField, DateField
 database = conectar_db()
 
+
 class BaseModel(Model):
     class Meta:
         database = database
+
 
 class Cliente(BaseModel):
     id_cliente = AutoField()

@@ -1,0 +1,14 @@
+from datos.conexion import conectar_db
+from peewee import Model, CharField, IntegerField, AutoField, DateField
+database = conectar_db()
+
+class BaseModel(Model):
+    class Meta:
+        database = database
+
+class estado_reserva(BaseModel):
+    id_estado_reserva = AutoField()
+    estado = CharField(max_length=20)
+    
+    class Meta:
+        table_name = "estado_reserva"

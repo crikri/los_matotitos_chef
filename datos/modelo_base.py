@@ -6,4 +6,4 @@ def modelo_inicial():
     class BaseModel(Model):
         class Meta:
             database = database
-            self.
+            self

@@ -98,4 +98,3 @@ class RestaurantesTrabajadores(BaseModel):
 
     class Meta:
         table_name = 'restaurantes_trabajadores'
-

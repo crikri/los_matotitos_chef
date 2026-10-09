@@ -9,3 +9,9 @@ def guardar_pais(pais):
     db.connect()
     pais.save()
     db.close()
+
+def buscar_pais_nombre(nombre):
+    pass
+
+def guardar_paises(paises):
+    pass

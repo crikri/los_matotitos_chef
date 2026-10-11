@@ -4,10 +4,6 @@ database = conectar_db()
 defecto = "DEFAULT 1"
 
 
-
-
-
-
 class RestauranteMesas(BaseModel):
     id_restaurante_mesa = AutoField()
     mesa = IntegerField(index=True)
@@ -15,6 +11,7 @@ class RestauranteMesas(BaseModel):
 
     class Meta:
         table_name = 'restaurante_mesas'
+
 
 class Restaurantes(BaseModel):
     direccion = IntegerField(index=True)
@@ -27,6 +24,7 @@ class Restaurantes(BaseModel):
     class Meta:
         table_name = 'restaurantes'
 
+
 class RestaurantesHorarios(BaseModel):
     horario = IntegerField(index=True)
     id_restaurante_horario = AutoField()
@@ -35,6 +33,7 @@ class RestaurantesHorarios(BaseModel):
     class Meta:
         table_name = 'restaurantes_horarios'
 
+
 class RestaurantesTrabajadores(BaseModel):
     id_restaurante_trabajador = AutoField()
     restaurante = IntegerField(index=True)
@@ -42,4 +41,3 @@ class RestaurantesTrabajadores(BaseModel):
 
     class Meta:
         table_name = 'restaurantes_trabajadores'
-

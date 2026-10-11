@@ -1,9 +1,13 @@
 from datos.conexion import conectar_db
 from datos.modelos.comuna import Comuna
 
+db = conectar_db()
+
+
 def listado_comunas():
     comunas = Comuna.select()
     return comunas
+
 
 def guardar_comuna(comuna: Comuna):
     comuna_nueva = comuna.save()

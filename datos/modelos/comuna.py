@@ -1,5 +1,5 @@
 from datos.conexion import conectar_db
-from peewee import Model, CharField, IntegerField, AutoField, DateField
+from peewee import Model, CharField, AutoField
 database = conectar_db()
 
 

@@ -1,8 +1,11 @@
 from datos.conexion import conectar_db
 from datos.modelos.pais import Pais
 
+
 def listado_paises():
-    return Pais.select()
+    paises = Pais.select()
+    return paises
+
 
 def guardar_pais(pais):
     db = conectar_db()
@@ -10,7 +13,10 @@ def guardar_pais(pais):
     pais.save()
     db.close()
 
-def obtener_pais_por_nombre(pais):
-    return Pais.get(Pais.nombre == pais)
+
+def buscar_pais_nombre(nombre):
+    pass
 
 
+def guardar_paises(paises):
+    pass

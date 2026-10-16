@@ -1,27 +1,26 @@
 import sys
-from datos.auxiliar import nombre_app, version_app
-from presentacion.presentación_comunas import mostrar_comunas
+from datos import nombre_app, version_app, main_menu
+from presentacion.presentacion_comunas import mostrar_comunas
+
 
 def menu_principal():
-    print(f"{nombre_app} {version_app}")
-    print("="*len(nombre_app) + "=" + "="*len(version_app))
+    print(f'{nombre_app} {version_app}')
+    print('='*len(nombre_app) + "=" + '='*len(version_app))
 
     while True:
-        print("[1] Gestión Restaurante")
-        print("[2] Gestión Horario")
-        print("[3] Gestión Reserva")
-        print("[4] Salir del sistema")
+        for clave, valor in main_menu.items():
+            print(f'[{clave}] - {valor}')
 
-        opcion_usuario = input("Ingrese una opción [1-4]: ")
+        opcion_usuario = input('Ingrese una opción [1-4]: ')
 
-        if opcion_usuario == "1":
-            pass
-        elif opcion_usuario == "2":
-            pass
-        elif opcion_usuario == "3":
-            pass
-        elif opcion_usuario == "4":
-            print("Saliendo del sistema")
+        if opcion_usuario == '1':
+            mostrar_comunas()
+        elif opcion_usuario == '2':
+            print('Seleccionada opcion 2')
+        elif opcion_usuario == '3':
+            print('Seleccionada opcion 3')
+        elif opcion_usuario == '4':
+            print('Saliendo de Sistema')
             sys.exit()
         else:
-            print("La opción ingresada no corresponde...\nIngrese nuevamente")
+            print('Opción Ingresada NO corresponde...\nIngrese nuevamente.')

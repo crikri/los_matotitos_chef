@@ -7,3 +7,5 @@ main_menu = {
     "3": "Gestión Horario",
     "4": "Salir"
 }
+
+mensaje_error_orm = 'Ha ocurrido un error: '

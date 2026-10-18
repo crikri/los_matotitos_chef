@@ -21,7 +21,7 @@ def buscar_comuna_nombre(nombre):
     print(tabla_comunas)
 
 
-def datos_actualizar_comuna():
+def actualizar_comuna():
     nombre = input("Ingrese nombre de comuna: ")
     buscar_comuna_nombre(nombre)
     id_ingresado = input("Ingrese Id de comuna para modificar:")
@@ -38,3 +38,27 @@ def datos_actualizar_comuna():
     respuesta = guardar_comuna(comuna)
     if respuesta == 1:
         print("Comuna actualizada correctamente")
+
+
+def eliminar_comuna():
+    nombre = input('Ingrese Nombre de Comuna: ')
+    buscar_comuna_nombre(nombre)
+
+    entrada = input('Ingrese Id de Comuna para eliminar: ')
+    if not entrada.isdigit():
+        print('El ID debe ser un número entero válido.')
+        return
+
+    comuna = comuna_por_id(entrada)
+    if not comuna:
+        print(f'No se encontró la comuna con ID {entrada}.')
+        return
+
+    # Cambiar estado y guardar
+    comuna.habilitado = False
+    respuesta = guardar_comuna(comuna)
+
+    if respuesta == 1:
+        print(f'Comuna {comuna.comuna} eliminada con éxito.')
+    else:
+        print('No se pudo actualizar el estado de la comuna.')

@@ -5,7 +5,7 @@ db = conectar_db()
 
 
 def listado_comunas():
-    comunas = Comuna.select()
+    comunas = Comuna.select().where(Comuna.habilitado == True)
     return comunas
 
 
@@ -26,10 +26,9 @@ def comuna_por_nombre(nombre):
         print(f'Ha ocurrido un error: {error}')
 
 
-def comuna_por_id(id):
+def comuna_por_id(id_comuna):
     try:
-        comuna = Comuna[id]
-        if comuna:
-            return comuna
+        return Comuna.get_or_none(Comuna.id_comuna == int(id_comuna))
     except Exception as error:
-        print(f'Ha ocurrido un error: {error}')
+        print(f"Error al buscar comuna: {error}")
+        return None

@@ -1,6 +1,6 @@
 import sys
 from datos import nombre_app, version_app, main_menu
-from presentacion.presentacion_comunas import datos_comuna, mostrar_comunas, buscar_comuna_nombre
+from presentacion.presentacion_comunas import datos_comuna, mostrar_comunas, buscar_comuna_nombre, eliminar_comuna
 
 
 def menu_principal():
@@ -11,7 +11,7 @@ def menu_principal():
         for clave, valor in main_menu.items():
             print(f'[{clave}] - {valor}')
 
-        opcion_usuario = input('Ingrese una opción [1-4]: ')
+        opcion_usuario = input('Ingrese una opción [1-5]: ')
 
         if opcion_usuario == '1':
             mostrar_comunas()
@@ -21,6 +21,8 @@ def menu_principal():
             nombre = input("Ingrese nombre de comuna a buscar: ")
             buscar_comuna_nombre(nombre)
         elif opcion_usuario == '4':
+            eliminar_comuna()
+        elif opcion_usuario == '5':
             print('Saliendo de Sistema')
             sys.exit()
         else:

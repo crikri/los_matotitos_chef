@@ -1,4 +1,4 @@
-from datos.repositorio.repositorio_comunas import listado_comunas, guardar_comuna, comuna_por_nombre
+from datos.repositorio.repositorio_comunas import listado_comunas, guardar_comuna, comuna_por_nombre, comuna_por_id
 from prettytable import PrettyTable
 from datos.modelos.comuna import Comuna
 
@@ -17,12 +17,12 @@ def cargar_comunas(tabla: PrettyTable):
 
 def buscar_comunas(tabla: PrettyTable, nombre):
     comunas = comuna_por_nombre(nombre)
-    tabla.field_names = ['Id', 'Código', 'Comuna']
+    tabla.field_names = ['Id', 'Código', 'Comuna', 'Habilitado']
 
     if comunas:
         for comuna in comunas:
             tabla.add_row(
-                [comuna.id_comuna, comuna.codigo_comuna, comuna.comuna])
+                [comuna.id_comuna, comuna.codigo_comuna, comuna.comuna, comuna.habilitado])
 
     return tabla
 
@@ -35,3 +35,8 @@ def crear_comuna(codigo, nombre):
     if comuna == 1:
         print(
             f'Se ha guardado la comuna {nueva_comuna.comuna} con ID: {nueva_comuna.id_comuna}')
+
+
+def obtener_datos_comuna(id_comuna):
+    comuna = comuna_por_id(id_comuna)
+    return comuna

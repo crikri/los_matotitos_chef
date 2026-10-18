@@ -1,29 +1,88 @@
-import sys
-from datos import nombre_app, version_app, main_menu
-from presentacion.presentacion_comunas import datos_comuna, mostrar_comunas, buscar_comuna_nombre, eliminar_comuna
+from datos.auxiliar import (
+    nombre_app,
+    version_app,
+    main_menu,
+    menu_restaurantes_dict,
+    menu_comunas_dict
+)
+
+# Importamos las funciones de Restaurantes
+from presentacion.presentacion_restaurantes import (
+    mostrar_restaurantes,
+    datos_restaurante_crear,
+    eliminar_restaurante,
+    actualizar_restaurante
+)
+
+# Importamos las funciones de Comunas que ya tienes listas
+from presentacion.presentacion_comunas import (
+    mostrar_comunas,
+    datos_comuna_crear,
+    buscar_comuna_nombre,  # o el nombre que tenga tu función de búsqueda
+    eliminar_comuna
+)
+
+
+def dibujar_menu(titulo, opciones):
+    """Imprime el marco visual del menú usando el diccionario correspondiente."""
+    print("\n" + "=" * 45)
+    print(f"   {nombre_app.upper()} - {titulo.upper()}")
+    print("=" * 45)
+    for clave, texto in opciones.items():
+        print(f"[{clave}] - {texto}")
+    print("=" * 45)
+
+
+def sub_menu_restaurantes():
+    while True:
+        dibujar_menu("Gestión de Restaurantes", menu_restaurantes_dict)
+        opcion = input("Seleccione una opción: ").strip()
+
+        if opcion == "1":
+            mostrar_restaurantes()
+        elif opcion == "2":
+            datos_restaurante_crear()
+        elif opcion == "3":
+            actualizar_restaurante()
+        elif opcion == "4":
+            eliminar_restaurante()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
+
+
+def sub_menu_comunas():
+    while True:
+        dibujar_menu("Gestión de Comunas", menu_comunas_dict)
+        opcion = input("Seleccione una opción: ").strip()
+
+        if opcion == "1":
+            mostrar_comunas()
+        elif opcion == "2":
+            datos_comuna_crear()
+        elif opcion == "3":
+            nombre = input("Ingrese nombre de comuna a buscar: ")
+            buscar_comuna_nombre(nombre)
+        elif opcion == "4":
+            eliminar_comuna()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
 
 
 def menu_principal():
-    print(f'{nombre_app} {version_app}')
-    print('='*len(nombre_app) + "=" + '='*len(version_app))
-
     while True:
-        for clave, valor in main_menu.items():
-            print(f'[{clave}] - {valor}')
+        dibujar_menu(f"Menú Principal ({version_app})", main_menu)
+        opcion = input("Seleccione una opción: ").strip()
 
-        opcion_usuario = input('Ingrese una opción [1-5]: ')
-
-        if opcion_usuario == '1':
-            mostrar_comunas()
-        elif opcion_usuario == '2':
-            datos_comuna()
-        elif opcion_usuario == '3':
-            nombre = input("Ingrese nombre de comuna a buscar: ")
-            buscar_comuna_nombre(nombre)
-        elif opcion_usuario == '4':
-            eliminar_comuna()
-        elif opcion_usuario == '5':
-            print('Saliendo de Sistema')
-            sys.exit()
+        if opcion == "1":
+            sub_menu_restaurantes()
+        elif opcion == "2":
+            sub_menu_comunas()
+        elif opcion == "0":
+            print(f"\nSaliendo de {nombre_app}... ¡Hasta pronto!")
+            break
         else:
-            print('Opción Ingresada NO corresponde...\nIngrese nuevamente.')
+            print("Opción no válida. Intente de nuevo.")

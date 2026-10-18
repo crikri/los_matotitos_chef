@@ -1,4 +1,5 @@
-from negocio.negocio_comunas import cargar_comunas, crear_comuna, buscar_comunas
+from negocio.negocio_comunas import obtener_datos_comuna
+from negocio.negocio_comunas import cargar_comunas, crear_comuna, buscar_comunas, obtener_datos_comuna
 from prettytable import PrettyTable
 from datos.repositorio.repositorio_comunas import comuna_por_id, guardar_comuna
 
@@ -9,7 +10,7 @@ def mostrar_comunas():
     print(tabla_comunas)
 
 
-def datos_comuna():
+def datos_comuna_crear():
     codigo = input("Ingrese codigo de comuna: ")
     nombre = input("Ingrese nombre de comuna: ")
     crear_comuna(codigo, nombre)
@@ -62,3 +63,38 @@ def eliminar_comuna():
         print(f'Comuna {comuna.comuna} eliminada con éxito.')
     else:
         print('No se pudo actualizar el estado de la comuna.')
+
+
+def datos_comuna(nombre):
+    tabla_comunas = PrettyTable()
+    tabla_comunas = buscar_comunas(tabla_comunas, nombre)
+    print(tabla_comunas)
+
+    print("\n--- CONSULTAR DATOS DE COMUNA ---")
+    entrada = input("Ingrese el ID de la comuna: ")
+
+    if not entrada.isdigit():
+        print("El ID debe ser un número entero válido.")
+        return
+
+    comuna = obtener_datos_comuna(entrada)
+
+    if not comuna:
+        print(f"No se encontró ninguna comuna con el ID {entrada}.")
+        return
+
+    # Determinamos el estado legible
+    estado = "Habilitada" if getattr(
+        comuna, 'habilitado', True) else "Deshabilitada"
+
+    print("\n================================")
+    print(f" ID        : {comuna._pk}")
+    print(f" Nombre    : {comuna.comuna}")
+    print(f" Estado    : {estado}")
+
+    # Si tu modelo tiene relación con provincia o región (Foreign Key), puedes mostrarla así:
+    if hasattr(comuna, 'id_provincia') and comuna.id_provincia:
+        # Si tiene relación directa en Peewee: comuna.id_provincia.nombre_provincia
+        print(f" Provincia : {comuna.id_provincia}")
+
+    print("================================\n")

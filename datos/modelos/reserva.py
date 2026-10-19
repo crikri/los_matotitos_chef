@@ -1,12 +1,10 @@
 from datos.conexion import conectar_db
-from peewee import Model, AutoField, IntegerField, DateField, TimeField
+from peewee import Model, AutoField, IntegerField, DateField, TimeField, BooleanField
 database = conectar_db()
-
 
 class BaseModel(Model):
     class Meta:
         database = database
-
 
 class Reserva(BaseModel):
     cantidad_personas = IntegerField()
@@ -17,6 +15,7 @@ class Reserva(BaseModel):
     hora_termino = TimeField()
     id_reserva = AutoField()
     mesa = IntegerField(index=True)
+    habilitado = BooleanField(default=True)
 
     class Meta:
         table_name = 'reservas'

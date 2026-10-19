@@ -6,7 +6,7 @@ class BaseModel(Model):
     class Meta:
         database = database
 
-class restaurante_horarios(BaseModel):
+class Restaurante_horario(BaseModel):
     id_restaurante_horarios = AutoField()
     restaurante = IntegerField(index=True)
     horario = IntegerField(index=True)

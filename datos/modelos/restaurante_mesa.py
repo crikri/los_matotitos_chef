@@ -6,7 +6,7 @@ class BaseModel(Model):
     class Meta:
         database = database
 
-class restaurante_mesas(BaseModel):
+class Restaurante_mesa(BaseModel):
     id_restaurante_mesas = AutoField()
     restaurante = IntegerField(index=True)
     mesa = IntegerField(index=True)

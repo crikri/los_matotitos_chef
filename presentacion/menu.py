@@ -4,7 +4,10 @@ from datos.auxiliar import (
     main_menu,
     menu_restaurantes_dict,
     menu_comunas_dict,
-    menu_mesas_dict
+    menu_mesas_dict,
+    menu_reservas_dict,
+    menu_trabajadores_dict
+
 )
 
 # Importamos las funciones de Restaurantes
@@ -27,6 +30,20 @@ from presentacion.presentacion_mesas import (
     datos_mesa_crear,
     actualizar_mesa,
     eliminar_mesa
+)
+
+# Importamos las funciones de Reservas
+from presentacion.presentacion_reservas import (
+    mostrar_reservas, 
+    datos_reserva_crear, 
+    eliminar_reserva
+)
+
+# Importamos las funciones de Trabajadores
+from presentacion.presentacion_trabajador import (
+    mostrar_trabajadores, 
+    datos_trabajador_crear, 
+    eliminar_trabajador
 )
 
 
@@ -109,8 +126,46 @@ def menu_principal():
             sub_menu_comunas()
         elif opcion == "3":
             sub_menu_mesas()
+        elif opcion == "4":
+            sub_menu_reservas()
+        elif opcion == "5":
+            sub_menu_trabajadores()
         elif opcion == "0":
             print(f"\nSaliendo de {nombre_app}... ¡Hasta pronto!")
             break
         else:
             print("Opción no válida. Intente de nuevo.")
+
+
+def sub_menu_reservas():
+    while True:
+        dibujar_menu("Gestión de Reservas", menu_reservas_dict)
+        opcion = input("Seleccione una opción: ").strip()
+
+        if opcion == "1":
+            mostrar_reservas()
+        elif opcion == "2":
+            datos_reserva_crear()
+        elif opcion == "4": 
+            eliminar_reserva()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida.")
+
+
+def sub_menu_trabajadores():
+    while True:
+        dibujar_menu("Gestión de Trabajadores", menu_trabajadores_dict)
+        opcion = input("Seleccione una opción: ").strip()
+
+        if opcion == "1":
+            mostrar_trabajadores()
+        elif opcion == "2":
+            datos_trabajador_crear()
+        elif opcion == "4": 
+            eliminar_trabajador()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida.")

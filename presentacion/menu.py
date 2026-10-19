@@ -34,15 +34,15 @@ from presentacion.presentacion_mesas import (
 
 # Importamos las funciones de Reservas
 from presentacion.presentacion_reservas import (
-    mostrar_reservas, 
-    datos_reserva_crear, 
+    mostrar_reservas,
+    datos_reserva_crear,
     eliminar_reserva
 )
 
 # Importamos las funciones de Trabajadores
 from presentacion.presentacion_trabajador import (
-    mostrar_trabajadores, 
-    datos_trabajador_crear, 
+    mostrar_trabajadores,
+    datos_trabajador_crear,
     eliminar_trabajador
 )
 
@@ -104,6 +104,7 @@ def sub_menu_mesas():
         if opcion == "1":
             mostrar_mesas()
         elif opcion == "2":
+            mostrar_mesas()
             datos_mesa_crear()
         elif opcion == "3":
             actualizar_mesa()
@@ -146,7 +147,7 @@ def sub_menu_reservas():
             mostrar_reservas()
         elif opcion == "2":
             datos_reserva_crear()
-        elif opcion == "4": 
+        elif opcion == "4":
             eliminar_reserva()
         elif opcion == "0":
             break
@@ -163,7 +164,7 @@ def sub_menu_trabajadores():
             mostrar_trabajadores()
         elif opcion == "2":
             datos_trabajador_crear()
-        elif opcion == "4": 
+        elif opcion == "4":
             eliminar_trabajador()
         elif opcion == "0":
             break

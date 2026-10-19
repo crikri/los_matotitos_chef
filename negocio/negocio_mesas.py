@@ -1,9 +1,12 @@
-from datos.repositorio.repositorio_mesas import listado_mesas, guardar_mesa, mesa_por_numero, mesa_por_id
 from prettytable import PrettyTable
+from datos.repositorio.repositorio_mesas import listado_mesas, guardar_mesa, mesa_por_numero, mesa_por_id
 from datos.modelos.mesa import Mesa
 
 
 def cargar_mesas(tabla: PrettyTable):
+    """
+    Funciones para gestionar las mesas en el sistema.
+    """
     mesas_db = listado_mesas()
     tabla.field_names = ['Id', 'Capacidad', 'Estado', 'ID Rest.', 'N° Mesa']
 

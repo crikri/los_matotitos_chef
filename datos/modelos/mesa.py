@@ -3,12 +3,14 @@ from peewee import BooleanField, Model, CharField, IntegerField, AutoField
 
 database = conectar_db()
 
+
 class BaseModel(Model):
     class Meta:
         database = database
 
+
 class Mesa(BaseModel):
-    id_mesas = AutoField()
+    id_mesa = AutoField()
     capacidad = IntegerField()
     estado = CharField(max_length=1)
     restaurante = IntegerField(index=True)

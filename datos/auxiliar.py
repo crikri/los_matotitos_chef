@@ -9,6 +9,7 @@ mensaje_error_orm = 'Ha ocurrido un error: '
 main_menu = {
     "1": "Gestión de Restaurantes",
     "2": "Gestión de Comunas",
+    "3": "Gestión de Mesas",
     "0": "Salir del Sistema"
 }
 
@@ -27,5 +28,13 @@ menu_comunas_dict = {
     "2": "Agregar Comuna",
     "3": "Buscar Comuna",
     "4": "Eliminar Comuna",
+    "0": "Volver al Menú Principal"
+}
+
+menu_mesas_dict = {
+    "1": "Listar Mesas",
+    "2": "Registrar Nueva Mesa",
+    "3": "Modificar Mesa",
+    "4": "Eliminar Mesa (Lógico)",
     "0": "Volver al Menú Principal"
 }

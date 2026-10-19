@@ -3,14 +3,14 @@ create database restaurante;
 use restaurante;
 
 create table comunas(
-    id_comuna int auto_increment, -- auto increment hace q ponga el id solito
+    id_comuna int auto_increment,
     codigo_comuna char(5) not null,
     comuna varchar(30) not null,
 
     constraint pk_comunas primary key (id_comuna)        
 ) COMMENT = 'Listado de comunas de Chile deacuerdo a la SUBDERE';
 
-create table  direcciones
+create table direcciones
 (
     id_direccion integer auto_increment,
     comuna integer not null,
@@ -66,6 +66,18 @@ create table estado_reserva(
     constraint pk_estado primary key (id_estado)
 ) comment = 'Tabla para guardar los estados de las reservas';
 
+-- Se movió hacia arriba: Debe existir antes de "restaurante_mesas" y "reservas"
+-- Se eliminó la coma sobrante
+create table mesas(
+    id_mesa integer auto_increment,
+    capacidad integer not null,
+    estado char(1) not null,
+    restaurante integer not null,
+    numero_mesa char(5) not null,
+
+    constraint pk_mesas primary key (id_mesa)
+) comment = 'Tabla para guardar las mesas de los restaurantes';
+
 create table restaurante_mesas(
     id_restaurante_mesa integer auto_increment,
     restaurante integer not null,
@@ -75,17 +87,6 @@ create table restaurante_mesas(
     constraint fk_restaurante_mesas_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes),
     constraint fk_restaurante_mesas_mesas foreign key(mesa) references mesas (id_mesa)
 ) comment = 'Tabla para guardar la relación de las mesas con los restaurantes';
-
-create table mesas(
-    id_mesa integer auto_increment,
-    capacidad integer not null,
-    estado char(1) not null,
-    restaurante integer not null,
-    numero_mesa char(5) not null,
-
-    constraint pk_mesas primary key (id_mesa),
-
-) comment = 'Tabla para guardar las mesas de los restaurantes';
 
 create table reservas(
     id_reserva integer auto_increment,
@@ -103,18 +104,8 @@ create table reservas(
     constraint fk_reservas_mesas foreign key(mesa) references mesas (id_mesa)
 ) comment = 'Tabla para guardar las reservas de los clientes en los restaurantes';
 
-
-
-create table restaurantes_trabajadores(
-    id_restaurante_trabajador integer auto_increment,
-    restaurante integer not null,
-    trabajador integer not null,
-
-    constraint pk_restaurantes_trabajadores primary key (id_restaurante_trabajador),
-    constraint fk_restaurantes_trabajadores_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes),
-    constraint fk_restaurantes_trabajadores_trabajadores foreign key(trabajador) references trabajadores (id_trabajador)
-) comment = 'Tabla para guardar la relación de los trabajadores con los restaurantes';
-
+-- Se movió hacia arriba: Debe existir antes de "restaurantes_trabajadores"
+-- Se eliminó la coma sobrante
 create table trabajadores(
     id_trabajador integer auto_increment,
     nombre varchar(50) not null,
@@ -128,11 +119,18 @@ create table trabajadores(
 
     constraint pk_trabajadores primary key (id_trabajador),
     constraint fk_trabajadores_paises foreign key(nacionalidad) references paises (id_pais),
-    constraint fk_trabajadores_direcciones foreign key(direccion) references direcciones (id_direccion),
+    constraint fk_trabajadores_direcciones foreign key(direccion) references direcciones (id_direccion)
 ) comment = 'Tabla para guardar los trabajadores de los restaurantes';
 
+create table restaurantes_trabajadores(
+    id_restaurante_trabajador integer auto_increment,
+    restaurante integer not null,
+    trabajador integer not null,
 
--- select au.nombre, au.pseudonimo, (select p.nacinalidad from países p where au.nacionalidad = p.id_pais), au.fecha_nacimiento from autores au git gigits
+    constraint pk_restaurantes_trabajadores primary key (id_restaurante_trabajador),
+    constraint fk_restaurantes_trabajadores_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes),
+    constraint fk_restaurantes_trabajadores_trabajadores foreign key(trabajador) references trabajadores (id_trabajador)
+) comment = 'Tabla para guardar la relación de los trabajadores con los restaurantes';
 
 create table horarios(
     id_horario integer auto_increment,
@@ -152,4 +150,3 @@ create table restaurantes_horarios(
     constraint fk_restaurantes_horarios_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes),
     constraint fk_restaurantes_horarios_horarios foreign key(horario) references horarios (id_horario)
 ) comment = 'Tabla para guardar la relación de los horarios con los restaurantes';
-

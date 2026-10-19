@@ -3,7 +3,8 @@ from datos.auxiliar import (
     version_app,
     main_menu,
     menu_restaurantes_dict,
-    menu_comunas_dict
+    menu_comunas_dict,
+    menu_mesas_dict
 )
 
 # Importamos las funciones de Restaurantes
@@ -20,6 +21,12 @@ from presentacion.presentacion_comunas import (
     datos_comuna_crear,
     buscar_comuna_nombre,  # o el nombre que tenga tu función de búsqueda
     eliminar_comuna
+)
+from presentacion.presentacion_mesas import (
+    mostrar_mesas,
+    datos_mesa_crear,
+    actualizar_mesa,
+    eliminar_mesa
 )
 
 
@@ -72,6 +79,25 @@ def sub_menu_comunas():
             print("Opción no válida. Intente de nuevo.")
 
 
+def sub_menu_mesas():
+    while True:
+        dibujar_menu("Gestión de Mesas", menu_mesas_dict)
+        opcion = input("Seleccione una opción: ").strip()
+
+        if opcion == "1":
+            mostrar_mesas()
+        elif opcion == "2":
+            datos_mesa_crear()
+        elif opcion == "3":
+            actualizar_mesa()
+        elif opcion == "4":
+            eliminar_mesa()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
+
+
 def menu_principal():
     while True:
         dibujar_menu(f"Menú Principal ({version_app})", main_menu)
@@ -81,6 +107,8 @@ def menu_principal():
             sub_menu_restaurantes()
         elif opcion == "2":
             sub_menu_comunas()
+        elif opcion == "3":
+            sub_menu_mesas()
         elif opcion == "0":
             print(f"\nSaliendo de {nombre_app}... ¡Hasta pronto!")
             break

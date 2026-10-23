@@ -1,10 +1,10 @@
-# from datos.modelos import Clientes
+# from datos.modelos import Usuarios
 from datos.conexion import conectar_db
-from datos.modelos.cliente import Cliente
+from datos.modelos.usuario import Usuario
 
 
-def guardar_cliente(cliente):
+def guardar_usuario(usuario):
     db = conectar_db()
     db.connect()
-    cliente.save()
+    usuario.save()
     db.close()

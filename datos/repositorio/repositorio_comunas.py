@@ -7,6 +7,10 @@ db = conectar_db()
 def listado_comunas():
     comunas = Comuna.select().where(Comuna.habilitado == True)
     return comunas
+    
+def listado_comunas_deshabilitadas():
+    comunas = Comuna.select().where(Comuna.habilitado == False)
+    return comunas
 
 
 def guardar_comuna(comuna: Comuna):

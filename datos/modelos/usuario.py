@@ -1,26 +1,24 @@
 from datos.conexion import conectar_db
-from datos.modelos.direccion import Direccion
-from peewee import Model, CharField, IntegerField, AutoField, DateField, BooleanField
-database = conectar_db()
+from peewee import Model, AutoField, CharField, IntegerField, DateField, BooleanField
 
+database = conectar_db()
 
 class BaseModel(Model):
     class Meta:
         database = database
 
-
 class Usuario(BaseModel):
     id_usuario = AutoField()
-    nombre = CharField(max_length=50)
-    apellido = CharField(max_length=50)
-    direccion = IntegerField(index=True),
-    rut = CharField(max_length=12, unique=True)
-    email = CharField(max_length=50)
-    fecha_nacimiento = DateField()
-    nacionalidad = IntegerField(index=True)
-    telefono = CharField(max_length=12),
-    habilitado = BooleanField(default=True),
-    contrasena = CharField(max_length=60, null=True)
+    rut = CharField(max_length=12)
+    nombre = CharField(max_length=25, null=False)
+    apellido = CharField(max_length=25, null=False)
+    email = CharField(max_length=255, null=False) 
+    pais = IntegerField(index=True, null=True)
+    fecha_nacimiento = DateField(null=True)
+    genero = IntegerField(null=False)
+    fecha_incorporacion = DateField(null=False)
+    habilitado = BooleanField(default=True)
+    password = CharField(max_length=60, null=True)
 
     class Meta:
-        table_name = "usuarios"
+        table_name = 'usuarios'

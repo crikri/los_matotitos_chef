@@ -12,7 +12,8 @@ main_menu = {
     "3": "Gestión de Mesas",
     "4": "Gestión de Reservas",
     "5": "Gestión de Trabajadores",
-    "0": "Salir del Sistema"
+    "6": "Gestión de Usuarios",
+    "0": "Salir"
 }
 
 # Submenú específico de Restaurantes (CRUD)
@@ -54,4 +55,10 @@ menu_trabajadores_dict = {
     "2": "Agregar Trabajador",
     "4": "Eliminar Trabajador (Lógico)",
     "0": "Volver al Menú Principal"
+}
+
+menu_usuarios_dict = {
+    "1": "Mostrar lista de usuarios",
+    "2": "Registrar nuevo usuario",
+    "0": "Volver al menú principal"
 }

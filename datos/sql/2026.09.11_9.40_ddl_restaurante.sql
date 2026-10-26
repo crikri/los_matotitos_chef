@@ -144,9 +144,26 @@ create table horarios(
 create table restaurantes_horarios(
     id_restaurante_horario integer auto_increment,
     restaurante integer not null,
-    horario integer not null,
+    horario integer not null,D
 
     constraint pk_restaurantes_horarios primary key (id_restaurante_horario),
     constraint fk_restaurantes_horarios_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes),
     constraint fk_restaurantes_horarios_horarios foreign key(horario) references horarios (id_horario)
 ) comment = 'Tabla para guardar la relación de los horarios con los restaurantes';
+
+create table usuarios(
+    id_usuario integer auto_increment,
+    rut varchar(12) not null unique,
+    nombre varchar(25) not null,
+    apellido varchar(25) not null,
+    correo varchar(255) not null,
+    pais integer null,
+    fecha_nacimiento date null,
+    genero integer not null,
+    fecha_incorporacion date not null,
+    habilitado boolean default true,
+    password varchar(60) null,
+    
+    constraint pk_usuarios primary key (id_usuario),
+    constraint fk_usuarios_paises foreign key(pais) references paises (id_pais)
+) comment = 'Tabla para guardar los usuarios del sistema';

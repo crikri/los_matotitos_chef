@@ -46,6 +46,25 @@ from presentacion.presentacion_trabajador import (
     eliminar_trabajador
 )
 
+from datos.auxiliar import (
+    nombre_app,
+    version_app,
+    main_menu,
+    menu_restaurantes_dict,
+    menu_comunas_dict,
+    menu_mesas_dict,
+    menu_reservas_dict,
+    menu_trabajadores_dict,
+    menu_usuarios_dict
+)
+
+from presentacion.presentacion_usuarios import (
+    mostrar_usuarios,
+    menu_agregar_usuario
+)
+
+
+
 
 def dibujar_menu(titulo, opciones):
     """Imprime el marco visual del menú usando el diccionario correspondiente."""
@@ -114,6 +133,20 @@ def sub_menu_mesas():
             break
         else:
             print("Opción no válida. Intente de nuevo.")
+        
+def sub_menu_usuarios():
+    while True:
+        dibujar_menu("Gestión de Usuarios", menu_usuarios_dict)
+        opcion = input("Seleccione una opción: ").strip()
+        
+        if opcion == "1":
+            mostrar_usuarios()
+        elif opcion == "2":
+            menu_agregar_usuario()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
 
 
 def menu_principal():
@@ -131,6 +164,8 @@ def menu_principal():
             sub_menu_reservas()
         elif opcion == "5":
             sub_menu_trabajadores()
+        elif opcion == "6":
+            sub_menu_usuarios()
         elif opcion == "0":
             print(f"\nSaliendo de {nombre_app}... ¡Hasta pronto!")
             break
@@ -170,3 +205,5 @@ def sub_menu_trabajadores():
             break
         else:
             print("Opción no válida.")
+
+

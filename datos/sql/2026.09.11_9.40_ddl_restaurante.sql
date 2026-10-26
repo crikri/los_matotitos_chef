@@ -1,3 +1,5 @@
+drop database if exists restaurante;
+
 create database restaurante;
 
 use restaurante;
@@ -144,7 +146,7 @@ create table horarios(
 create table restaurantes_horarios(
     id_restaurante_horario integer auto_increment,
     restaurante integer not null,
-    horario integer not null,D
+    horario integer not null,
 
     constraint pk_restaurantes_horarios primary key (id_restaurante_horario),
     constraint fk_restaurantes_horarios_restaurantes foreign key(restaurante) references restaurantes (id_restaurantes),
@@ -163,6 +165,7 @@ create table usuarios(
     fecha_incorporacion date not null,
     habilitado boolean default true,
     password varchar(60) null,
+    email varchar(255) null,
     
     constraint pk_usuarios primary key (id_usuario),
     constraint fk_usuarios_paises foreign key(pais) references paises (id_pais)

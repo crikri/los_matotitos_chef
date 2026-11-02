@@ -1,13 +1,14 @@
 from datos.conexion import conectar_db
 from datos.modelos.comuna import Comuna
-from datos.auxiliar import mensaje_error_orm
+from auxiliar.auxiliar import mensaje_error_orm
 db = conectar_db()
 
 
 def listado_comunas():
     comunas = Comuna.select().where(Comuna.habilitado == True)
     return comunas
-    
+
+
 def listado_comunas_deshabilitadas():
     comunas = Comuna.select().where(Comuna.habilitado == False)
     return comunas

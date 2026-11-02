@@ -1,26 +1,36 @@
+from prettytable import PrettyTable
 import getpass
 from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios
-from prettytable import PrettyTable
+from auxiliar.validar_rut import validar_rut
+
 
 def mostrar_usuarios():
     tabla_usuarios = PrettyTable()
     tabla_usuarios = cargar_usuarios(tabla_usuarios)
     print(tabla_usuarios)
 
+
 def menu_agregar_usuario():
+    rut = ""
     print("\n--- REGISTRAR NUEVO USUARIO ---")
-    rut = input("RUT (Ej: 12345678-9): ")
+    while rut == "":
+        rut = input("RUT (Ej: 12345678-9): ")
+        if not validar_rut(rut):
+            print("RUT inválido. Intente nuevamente.")
+            rut = ""
+
     nombre = input("Nombre: ")
     apellido = input("Apellido: ")
-    email = input("Correo electrónico: ") # <-- Variable ajustada
-    
+    email = input("Correo electrónico: ")  # <-- Variable ajustada
+
     try:
         pais = int(input("ID del País (Ej: 1 para Chile): "))
     except ValueError:
         pais = None
 
-    fecha_nacimiento = input("Fecha de Nacimiento (YYYY-MM-DD) o presione Enter para omitir: ")
-    
+    fecha_nacimiento = input(
+        "Fecha de Nacimiento (YYYY-MM-DD) o presione Enter para omitir: ")
+
     print("\nOpciones de Género:")
     print("184: Masculino")
     print("185: Femenino")

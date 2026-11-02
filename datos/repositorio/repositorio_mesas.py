@@ -1,6 +1,6 @@
 from datos.conexion import conectar_db
 from datos.modelos.mesa import Mesa
-from datos.auxiliar import mensaje_error_orm
+from auxiliar.auxiliar import mensaje_error_orm
 db = conectar_db()
 
 

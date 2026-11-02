@@ -1,4 +1,4 @@
-from datos.auxiliar import (
+from auxiliar.auxiliar import (
     nombre_app,
     version_app,
     main_menu,
@@ -46,7 +46,7 @@ from presentacion.presentacion_trabajador import (
     eliminar_trabajador
 )
 
-from datos.auxiliar import (
+from auxiliar.auxiliar import (
     nombre_app,
     version_app,
     main_menu,
@@ -62,8 +62,6 @@ from presentacion.presentacion_usuarios import (
     mostrar_usuarios,
     menu_agregar_usuario
 )
-
-
 
 
 def dibujar_menu(titulo, opciones):
@@ -133,12 +131,13 @@ def sub_menu_mesas():
             break
         else:
             print("Opción no válida. Intente de nuevo.")
-        
+
+
 def sub_menu_usuarios():
     while True:
         dibujar_menu("Gestión de Usuarios", menu_usuarios_dict)
         opcion = input("Seleccione una opción: ").strip()
-        
+
         if opcion == "1":
             mostrar_usuarios()
         elif opcion == "2":
@@ -205,5 +204,3 @@ def sub_menu_trabajadores():
             break
         else:
             print("Opción no válida.")
-
-

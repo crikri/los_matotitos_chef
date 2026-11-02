@@ -1,52 +1,49 @@
-from prettytable import PrettyTable
-import getpass
+import re
 from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios
-from auxiliar.validar_rut import validar_rut
-
+from prettytable import PrettyTable
 
 def mostrar_usuarios():
     tabla_usuarios = PrettyTable()
     tabla_usuarios = cargar_usuarios(tabla_usuarios)
     print(tabla_usuarios)
+    id_pais = input("Ingrese el ID del país para filtrar usuarios (o presione Enter para mostrar todos): ")
 
+    def datos_usuario():
+        rut = nombre = apellido = correo = nombre_pais = fecha_nacimiento = genero = contrasenia = ''
+        print('\nIngrese Datos Usuario')
 
-def menu_agregar_usuario():
-    rut = ""
-    print("\n--- REGISTRAR NUEVO USUARIO ---")
-    while rut == "":
-        rut = input("RUT (Ej: 12345678-9): ")
-        if not validar_rut(rut):
-            print("RUT inválido. Intente nuevamente.")
-            rut = ""
+    while rut == '':
+        rut = input('RUT: ')
+    while nombre == '':
+        nombre = input('Nombre: ')
+    while apellido == '':
+        apellido = input('Apellido: ')
+    while correo == '':
+        correo = input('Correo: ')
+        patron_correo = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(patron_correo, correo):
+            print('Correo electrónico NO corresponde, ingrese nuevamente...')
+            correo = ''
 
-    nombre = input("Nombre: ")
-    apellido = input("Apellido: ")
-    email = input("Correo electrónico: ")  # <-- Variable ajustada
+    while fecha_nacimiento := input(""):
+        fecha_nacimiento = input("Fecha de Nacimiento (dd-MM-aaaa): ")
 
-    try:
-        pais = int(input("ID del País (Ej: 1 para Chile): "))
-    except ValueError:
-        pais = None
+    while genero == "":
+        print("Opciones de Género:")
+        print("[1]: Masculino")
+        print("[2]: Femenino")
+        print("[3]: Otro")
+        genero = input("Seleccione el ID de Género [1-3]: ")
+        if genero not in ["1", "2", "3"]:
+            print("Género no corresponde. Ingrese nuevamente.")
+            genero = ""
+    
+    while contrasenia == "":
+        patron_contrasenia = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}$"
+        print("Ingrese la contraseña (mínimo 8 caracteres, máximo 15, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial): ")
+        contrasenia = input("Contraseña: ")
+        if not re.match(patron_contrasenia, contrasenia):
+            print("Contraseña no cumple con los requisitos. Ingrese nuevamente.")
+            contrasenia = ""
 
-    fecha_nacimiento = input(
-        "Fecha de Nacimiento (YYYY-MM-DD) o presione Enter para omitir: ")
-
-    print("\nOpciones de Género:")
-    print("184: Masculino")
-    print("185: Femenino")
-    print("186: Otro")
-    try:
-        genero = int(input("Seleccione el ID de Género: "))
-    except ValueError:
-        genero = 186
-
-    password = getpass.getpass("Contraseña (no se verá mientras escribes): ")
-
-    exito = registrar_nuevo_usuario(
-        rut, nombre, apellido, email, pais, fecha_nacimiento, genero, password
-    )
-
-    if exito:
-        print("\nUsuario registrado correctamente.")
-    else:
-        print("\nHubo un problema al registrar el usuario.")
+    crear_usuario(rut, nombre.title(), apellido.title(), correo, pais, fecha_nacimiento, genero, contrasenia)

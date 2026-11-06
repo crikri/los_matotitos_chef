@@ -1,49 +1,66 @@
 import re
-from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios
+from auxiliar.validaciones import validar_rut, validar_correo
+from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios  
+from negocio.negocio_paises import buscar_pais
 from prettytable import PrettyTable
 
+def menu_agregar_usuario():
+    rut = ""
+    print("\n--- REGISTRAR NUEVO USUARIO ---")
+    while rut == "":
+        rut = input("RUT (Ej: 12345678-9): ")
+        if not validar_rut(rut):
+            print("RUT inválido. Intente nuevamente.")
+            rut = ""
 def mostrar_usuarios():
     tabla_usuarios = PrettyTable()
     tabla_usuarios = cargar_usuarios(tabla_usuarios)
     print(tabla_usuarios)
-    id_pais = input("Ingrese el ID del país para filtrar usuarios (o presione Enter para mostrar todos): ")
-
-    def datos_usuario():
-        rut = nombre = apellido = correo = nombre_pais = fecha_nacimiento = genero = contrasenia = ''
-        print('\nIngrese Datos Usuario')
+    
+def datos_usuario():
+    rut = nombre = apellido = correo = nombre_pais = fecha_nacimiento = genero = contrasenia = ''
+    print('\nIngrese Datos Usuario')
 
     while rut == '':
         rut = input('RUT: ')
+        if not validar_rut(rut):
+            print('RUT NO corresponde, ingrese nuevamente...')
+            rut = ''
     while nombre == '':
         nombre = input('Nombre: ')
     while apellido == '':
         apellido = input('Apellido: ')
     while correo == '':
         correo = input('Correo: ')
-        patron_correo = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        if not re.match(patron_correo, correo):
-            print('Correo electrónico NO corresponde, ingrese nuevamente...')
-            correo = ''
+        correo = validar_correo(correo)
+    while nombre_pais == '':
+        nombre_pais = input('Nombre País: ')
+        tabla_paises = PrettyTable()
+        tabla_paises = buscar_pais(tabla_paises, nombre_pais)
+        print(tabla_paises)
+       
+        id_pais = input('Id País: ')
 
-    while fecha_nacimiento := input(""):
-        fecha_nacimiento = input("Fecha de Nacimiento (dd-MM-aaaa): ")
+    while fecha_nacimiento == '':
+        fecha_nacimiento = input('Fecha Nacimiento (dd/MM/aaaa): ')
 
-    while genero == "":
-        print("Opciones de Género:")
-        print("[1]: Masculino")
-        print("[2]: Femenino")
-        print("[3]: Otro")
-        genero = input("Seleccione el ID de Género [1-3]: ")
-        if genero not in ["1", "2", "3"]:
-            print("Género no corresponde. Ingrese nuevamente.")
-            genero = ""
-    
-    while contrasenia == "":
-        patron_contrasenia = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}$"
-        print("Ingrese la contraseña (mínimo 8 caracteres, máximo 15, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial): ")
-        contrasenia = input("Contraseña: ")
+    while genero == '':
+        print('Opciones de Género')
+        print('[1] Masculino')
+        print('[2] Femenino')
+        print('[3] Otro')
+        genero = input('Opción Género [1-3]: ')
+        if genero not in ['1','2','3']:
+            print('Género NO corresponde, ingrese nuevamente...')
+            genero = ''
+
+    while contrasenia == '':
+        patron_contrasenia = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$'
+        print('Ingrese una contraseña segura:')
+        print('Al menos una minúscula\nAl menos una mayúscula\nAl menos un dígito\nAl menos un caracter especial')
+        print('Al menos 8 caracteres de largo')
+        contrasenia = input('Contraseña: ')
         if not re.match(patron_contrasenia, contrasenia):
-            print("Contraseña no cumple con los requisitos. Ingrese nuevamente.")
-            contrasenia = ""
-
-    crear_usuario(rut, nombre.title(), apellido.title(), correo, pais, fecha_nacimiento, genero, contrasenia)
+            print('Su contraseña NO es segura, ingrese nuevamente...')
+            contrasenia = ''
+    registrar_nuevo_usuario(rut, nombre.title(), apellido.title(), correo, id_pais, fecha_nacimiento, genero, contrasenia)

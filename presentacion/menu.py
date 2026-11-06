@@ -60,7 +60,7 @@ from auxiliar.auxiliar import (
 
 from presentacion.presentacion_usuarios import (
     mostrar_usuarios,
-    menu_agregar_usuario
+    datos_usuario
 )
 
 
@@ -141,7 +141,7 @@ def sub_menu_usuarios():
         if opcion == "1":
             mostrar_usuarios()
         elif opcion == "2":
-            menu_agregar_usuario()
+            datos_usuario()
         elif opcion == "0":
             break
         else:

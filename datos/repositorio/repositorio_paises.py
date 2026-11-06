@@ -1,22 +1,25 @@
 from datos.conexion import conectar_db
 from datos.modelos.pais import Pais
 
+database = conectar_db()
 
 def listado_paises():
-    paises = Pais.select()
-    return paises
+    listado_paises = Pais.select()
+    return listado_paises
 
+def obtener_pais_nombre(nombre):
+    try:
+        paises = Pais.select().where(Pais.nombre.contains(nombre))
+        if paises:
+            return paises
+    except Exception as error:
+        print(f'Ha ocurrido un error: {error}')
 
-def guardar_pais(pais):
-    db = conectar_db()
-    db.connect()
-    pais.save()
-    db.close()
+def guardar_pais():
+    print('GG')
 
+def actualizar_pais():
+    print('GG')
 
-def buscar_pais_nombre(nombre):
-    pass
-
-
-def guardar_paises(paises):
-    pass
+def eliminar_pais():
+    print('GG')

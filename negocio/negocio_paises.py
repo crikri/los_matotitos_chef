@@ -1,6 +1,6 @@
 from prettytable import PrettyTable
 from datos.modelos.pais import Pais
-from datos.repositorio.repositorio_paises import obtener_pais_nombre
+from datos.repositorio.repositorio_paises import obtener_pais_nombre, obtener_pais_id
 
 
 def buscar_pais(tabla: PrettyTable, nombre):
@@ -25,3 +25,11 @@ def buscar_pais(tabla: PrettyTable, nombre):
             ])
 
     return tabla
+
+
+def obtener_id_pais_valido(texto_id):
+    """Devuelve el id (int) si el texto es un número y el país existe; si no, None."""
+    if not texto_id.strip().isdigit():
+        return None
+    pais = obtener_pais_id(int(texto_id))
+    return pais.id_pais if pais else None

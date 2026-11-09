@@ -1,7 +1,7 @@
 import re
 from auxiliar.validaciones import validar_rut, validar_correo
 from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios  
-from negocio.negocio_paises import buscar_pais
+from negocio.negocio_paises import buscar_pais, obtener_id_pais_valido
 from prettytable import PrettyTable
 
 def menu_agregar_usuario():
@@ -33,13 +33,23 @@ def datos_usuario():
     while correo == '':
         correo = input('Correo: ')
         correo = validar_correo(correo)
-    while nombre_pais == '':
-        nombre_pais = input('Nombre País: ')
+
+    id_pais = None
+    while id_pais is None:
+        nombre_pais = input('Nombre País: ').strip()
+        if nombre_pais == '':
+            continue
         tabla_paises = PrettyTable()
         tabla_paises = buscar_pais(tabla_paises, nombre_pais)
+        if not tabla_paises.rows:
+            print('No se encontraron países con ese nombre, intente nuevamente...')
+            continue
         print(tabla_paises)
-       
-        id_pais = input('Id País: ')
+
+        # Se guarda el id elegido de la tabla (no el nombre)
+        id_pais = obtener_id_pais_valido(input('Id País (según la tabla): '))
+        if id_pais is None:
+            print('Id de país NO válido, busque nuevamente...')
 
     while fecha_nacimiento == '':
         fecha_nacimiento = input('Fecha Nacimiento (dd/MM/aaaa): ')

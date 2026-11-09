@@ -15,6 +15,13 @@ def obtener_pais_nombre(nombre):
     except Exception as error:
         print(f'Ha ocurrido un error: {error}')
 
+def obtener_pais_id(id_pais):
+    try:
+        return Pais.get_or_none(Pais.id_pais == id_pais)
+    except Exception as error:
+        print(f'Ha ocurrido un error: {error}')
+        return None
+
 def guardar_pais():
     print('GG')
 

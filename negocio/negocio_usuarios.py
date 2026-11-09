@@ -26,8 +26,8 @@ def cargar_usuarios(tabla: PrettyTable):
                 usuario.id_usuario,
                 usuario.rut,
                 nombre_completo,
-                usuario.email,  # <-- Cambiado a email
-                usuario.pais,
+                usuario.email,  
+                usuario.pais.nombre if usuario.pais else 'Sin país',
                 usuario.fecha_nacimiento,
                 genero_usuario,
                 usuario.fecha_incorporacion
@@ -45,7 +45,7 @@ def registrar_nuevo_usuario(rut, nombre, apellido, email, pais, fecha_nacimiento
         'rut': rut,
         'nombre': nombre,
         'apellido': apellido,
-        'email': email,  # <-- Cambiado a email
+        'email': email,  
         'pais': pais,
         'fecha_nacimiento': fecha_nacimiento if fecha_nacimiento else None,
         'genero': genero,

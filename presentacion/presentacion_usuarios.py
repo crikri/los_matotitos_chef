@@ -1,8 +1,10 @@
 import re
+import pwinput
 from auxiliar.validaciones import validar_rut, validar_correo
-from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios  
+from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios
 from negocio.negocio_paises import buscar_pais, obtener_id_pais_valido
 from prettytable import PrettyTable
+
 
 def menu_agregar_usuario():
     rut = ""
@@ -12,11 +14,14 @@ def menu_agregar_usuario():
         if not validar_rut(rut):
             print("RUT inválido. Intente nuevamente.")
             rut = ""
+
+
 def mostrar_usuarios():
     tabla_usuarios = PrettyTable()
     tabla_usuarios = cargar_usuarios(tabla_usuarios)
     print(tabla_usuarios)
-    
+
+
 def datos_usuario():
     rut = nombre = apellido = correo = nombre_pais = fecha_nacimiento = genero = contrasenia = ''
     print('\nIngrese Datos Usuario')
@@ -60,7 +65,7 @@ def datos_usuario():
         print('[2] Femenino')
         print('[3] Otro')
         genero = input('Opción Género [1-3]: ')
-        if genero not in ['1','2','3']:
+        if genero not in ['1', '2', '3']:
             print('Género NO corresponde, ingrese nuevamente...')
             genero = ''
 
@@ -69,8 +74,9 @@ def datos_usuario():
         print('Ingrese una contraseña segura:')
         print('Al menos una minúscula\nAl menos una mayúscula\nAl menos un dígito\nAl menos un caracter especial')
         print('Al menos 8 caracteres de largo')
-        contrasenia = input('Contraseña: ')
+        contrasenia = pwinput.pwinput(prompt='Contraseña: ', mask='*')
         if not re.match(patron_contrasenia, contrasenia):
             print('Su contraseña NO es segura, ingrese nuevamente...')
             contrasenia = ''
-    registrar_nuevo_usuario(rut, nombre.title(), apellido.title(), correo, id_pais, fecha_nacimiento, genero, contrasenia)
+    registrar_nuevo_usuario(rut, nombre.title(), apellido.title(
+    ), correo, id_pais, fecha_nacimiento, genero, contrasenia)

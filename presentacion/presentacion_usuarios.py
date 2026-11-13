@@ -1,7 +1,11 @@
 import re
+import bcrypt
 import pwinput
+from auxiliar.auxiliar import nombre_app, version_app
 from auxiliar.validaciones import validar_rut, validar_correo
 from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios
+from datos.repositorio.repositorio_usuarios import listado_usuarios_habilitados
+from datos.modelos.usuario import Usuario
 from negocio.negocio_paises import buscar_pais, obtener_id_pais_valido
 from prettytable import PrettyTable
 
@@ -80,3 +84,46 @@ def datos_usuario():
             contrasenia = ''
     registrar_nuevo_usuario(rut, nombre.title(), apellido.title(
     ), correo, id_pais, fecha_nacimiento, genero, contrasenia)
+
+def login_usuario():
+    """Retorna el Usuario autenticado, o None si se cancela o falla el acceso."""
+    while True:
+        print(f"{nombre_app} {version_app}")
+        print("=" * len(nombre_app) + "=" + "=" * len(version_app))
+        print("Ingrese sus credenciales para iniciar sesión.")
+
+        correo = " "
+        while correo == " ":
+            correo = input("Correo: ")
+            if not validar_correo(correo):
+                print("Correo inválido. Intente nuevamente.")
+                correo = " "
+
+        usuario = Usuario.get_or_none(Usuario.email == correo)
+
+        if usuario is not None:
+            if not usuario.habilitado:
+                print("Este usuario está deshabilitado.\n")
+                continue
+
+            for intento in range(3):
+                contrasenia = pwinput.pwinput(prompt='Contraseña: ', mask='*')
+                if usuario.password and bcrypt.checkpw(
+                        contrasenia.encode('utf-8'),
+                        usuario.password.encode('utf-8')):
+                    print(f"\nBienvenido, {usuario.nombre}.\n")
+                    return usuario
+                print(f"Contraseña incorrecta. Intentos restantes: {2 - intento}")
+
+            print("Demasiados intentos fallidos.")
+            return None
+
+        print("Usuario no encontrado. \n¿Desea registrarse?")
+        opcion_registro = input("Ingrese Si/No [s-n]: ")
+
+        match opcion_registro.lower():
+            case "s":
+                datos_usuario(correo)
+            case "n":
+                print("Saliendo del programa...")
+                return None

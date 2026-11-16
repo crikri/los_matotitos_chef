@@ -58,11 +58,6 @@ from auxiliar.auxiliar import (
     menu_usuarios_dict
 )
 
-from presentacion.presentacion_usuarios import (
-    mostrar_usuarios,
-    datos_usuario
-)
-
 
 def dibujar_menu(titulo, opciones):
     """Imprime el marco visual del menú usando el diccionario correspondiente."""
@@ -139,9 +134,9 @@ def sub_menu_usuarios():
         opcion = input("Seleccione una opción: ").strip()
 
         if opcion == "1":
-            mostrar_usuarios()
+            pass
         elif opcion == "2":
-            datos_usuario()
+            pass
         elif opcion == "0":
             break
         else:

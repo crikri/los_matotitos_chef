@@ -1,12 +1,13 @@
 import re
 import bcrypt
 import pwinput
+from auxiliar.auxiliar import nombre_app, version_app
 from auxiliar.validaciones import validar_rut, validar_correo
 from negocio.negocio_usuarios import registrar_nuevo_usuario, cargar_usuarios
 from datos.repositorio.repositorio_usuarios import listado_usuarios_habilitados
 from datos.modelos.usuario import Usuario
 from negocio.negocio_paises import buscar_pais, obtener_id_pais_valido
-from datos.repositorio.repositorio_usuarios import usuario_por_correo
+
 from prettytable import PrettyTable
 from presentacion.menu import menu_principal
 
@@ -77,7 +78,7 @@ def datos_usuario():
                 genero = ''
 
         while contrasenia == '':
-            patron_contrasenia = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$'
+            patron_contrasenia = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*?&#._-])[A-Za-z\d$@!%*?&#._-]{8,}\Z'
             print('Ingrese una contraseña segura:')
             print('Al menos una minúscula\nAl menos una mayúscula\nAl menos un dígito\nAl menos un caracter especial')
             print('Al menos 8 caracteres de largo')
@@ -90,37 +91,6 @@ def datos_usuario():
     except Exception as e:
         print(f"Error al registrar usuario: {e}")
 
-
-def login_usuario():
-    correo = ""
-    while correo == "":
-        print(f"\n--- {nombre_app} v{version_app} ---")
-        print("--- LOGIN USUARIO ---")
-        print("Ingrese sus credenciales para iniciar sesión.")
-
-        correo = input("Correo: ")
-        if not validar_correo(correo):
-            print("Correo inválido. Intente nuevamente.")
-            correo = ""
-        else:
-            usuario = usuario_por_correo(correo)
-
-            if usuario:
-                contrasenia = input("Contraseña: ")
-                if not bcrypt.checkpw(contrasenia.encode('utf-8'), usuario.password.encode('utf-8')):
-                    print("Contraseña incorrecta. Intente nuevamente.")
-                    correo = ""
-                elif bcrypt.checkpw(contrasenia.encode('utf-8'), usuario.password.encode('utf-8')):
-                    print(f"Bienvenido, {usuario.nombre} {usuario.apellido}!")
-                    menu_principal()
-            if not usuario:
-                print("Usuario no encontrado, desea registrarse? (s/n)")
-                opcion = input().lower()
-                match opcion.lower():
-                    case "s":
-                        datos_usuario()
-                    case "n":
-                        correo = ""
 
 def login_usuario():
     """Retorna el Usuario autenticado, o None si se cancela o falla el acceso."""
@@ -149,18 +119,25 @@ def login_usuario():
                         contrasenia.encode('utf-8'),
                         usuario.password.encode('utf-8')):
                     print(f"\nBienvenido, {usuario.nombre}.\n")
-                    return usuario
-                print(f"Contraseña incorrecta. Intentos restantes: {2 - intento}")
+                    menu_principal()
+                    break
+                else:
+                    print(
+                        f"Contraseña incorrecta. Intentos restantes: {2 - intento}")
+        if usuario is None:
+            print("Usuario no encontrado. \n¿Desea registrarse?")
+            opcion_registro = input("Ingrese Si/No [s-n]: ")
 
-            print("Demasiados intentos fallidos.")
-            return None
-
-        print("Usuario no encontrado. \n¿Desea registrarse?")
-        opcion_registro = input("Ingrese Si/No [s-n]: ")
-
-        match opcion_registro.lower():
+            match opcion_registro.lower():
+                case "s":
+                    datos_usuario()
+                case "n":
+                    print("No se creara usuario...")
+        print(f"\n¿Desea salir del programa?")
+        opcion_salida = input("Ingrese Si/No [s-n]: ")
+        match opcion_salida.lower():
             case "s":
-                datos_usuario(correo)
-            case "n":
                 print("Saliendo del programa...")
-                return None
+                break
+            case "n":
+                continue

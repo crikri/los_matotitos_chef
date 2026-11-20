@@ -46,6 +46,11 @@ from presentacion.presentacion_trabajador import (
     eliminar_trabajador
 )
 
+
+
+from presentacion.presentacion_usuarios import mostrar_usuarios
+
+
 from auxiliar.auxiliar import (
     nombre_app,
     version_app,

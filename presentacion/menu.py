@@ -47,8 +47,7 @@ from presentacion.presentacion_trabajador import (
 )
 
 
-
-from presentacion.presentacion_usuarios import mostrar_usuarios
+from presentacion.presentacion_usuarios import mostrar_usuarios, datos_usuario
 
 
 from auxiliar.auxiliar import (
@@ -139,9 +138,9 @@ def sub_menu_usuarios():
         opcion = input("Seleccione una opción: ").strip()
 
         if opcion == "1":
-            pass
+            mostrar_usuarios()
         elif opcion == "2":
-            pass
+            datos_usuario()
         elif opcion == "0":
             break
         else:

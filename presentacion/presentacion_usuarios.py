@@ -51,7 +51,7 @@ def datos_usuario():
                 print('Id de país NO válido, busque nuevamente...')
 
         while fecha_nacimiento == '':
-            fecha_nacimiento = input('Fecha Nacimiento (dd-MM-aaaa): ')
+            fecha_nacimiento = input('Fecha Nacimiento (dd-MM-4aaaa): ')
 
         while genero == '':
             print('Opciones de Género')

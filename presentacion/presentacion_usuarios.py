@@ -2,13 +2,10 @@ import re
 import pwinput
 from prettytable import PrettyTable
 from negocio.negocio_paises import buscar_pais, obtener_id_pais_valido
-from negocio.negocio_usuarios import registrar_nuevo_usuario
-from auxiliar.validaciones import validar_rut, validar_correo
+from negocio.negocio_usuarios import registrar_nuevo_usuario, modificar_usuario
+from auxiliar.validaciones import validar_rut, validar_correo, validar_genero
 from negocio.negocio_usuarios import cargar_usuarios
-from negocio.negocio_paises import buscar_pais, obtener_id_pais_valido
-from auxiliar.validaciones import validar_correo, validar_rut
-
-from prettytable import PrettyTable
+from datos.repositorio.repositorio_usuarios import usuario_por_rut
 
 
 def mostrar_usuarios():
@@ -87,60 +84,50 @@ def actualizar_datos_usuario():
     print('Introduzca nuevos datos para actualizar\no Enter para conservar.')
 
     while rut == '':
-        rut = input('RUT del usuario a modificar (12.345.678-5): ')
+        rut = input('RUT (12.345.678-5) (o Enter para conservar): ')
         if not validar_rut(rut):
             print('Rut NO VÁLIDO, ingrese nuevamente...')
             rut = ''
         else:
             usuario = usuario_por_rut(rut)
 
-    if usuario:
-        print('Usuario encontrado.')
+            if usuario:
+                print('Usuario encontrado.')
 
-        nombre = input('Nombre (o Enter para conservar): ')
-        apellido = input('Apellido (o Enter para conservar): ')
-        correo = input('Correo (o Enter para conservar): ')
-        if not validar_correo(correo):
-            print('Correo electrónico NO corresponde, no será modificado...')
-            correo = ''
+                nombre = input('Nombre (o Enter para conservar): ')
+                apellido = input('Apellido (o Enter para conservar): ')
+                correo = input('Correo (o Enter para conservar): ')
+                if not validar_correo(correo):
+                    print('Correo electrónico NO corresponde, no será modificado...')
+                    correo = ''
 
-        nombre_pais = input('Nombre País (o Enter para conservar): ')
-        id_pais = ''
-        if nombre_pais != '':
-            tabla_paises = PrettyTable()
-            tabla_paises = buscar_pais(tabla_paises, nombre_pais)
-            print(tabla_paises)
-            id_pais = obtener_id_pais_valido(input('Id País: '))
-            if id_pais is None:
-                print('Id de país NO válido, no será modificado...')
-                id_pais = ''
+                nombre_pais = input('Nombre País: ')
+                tabla_paises = PrettyTable()
+                tabla_paises = buscar_pais(tabla_paises, nombre_pais)
+                print(tabla_paises)
+                id_pais = input('Id País (o Enter para conservar): ')
 
-        fecha_nacimiento = input(
-            'Fecha Nacimiento (dd/MM/aaaa) (o Enter para conservar): ')
-        if not validar_fecha(fecha_nacimiento):
-            print('Fecha NO válida, no será modificada...')
-            fecha_nacimiento = ''
+                fecha_nacimiento = input(
+                    'Fecha Nacimiento (dd/MM/aaaa) (o Enter para conservar): ')
 
-        print('Opciones de Género')
-        print('[1] Masculino')
-        print('[2] Femenino')
-        print('[3] Otro')
-        genero = input('Opción Género [1-3]: ')
-        if not validar_genero(genero):
-            print('Género NO corresponde, no será modificado...')
-            genero = ''
+                print('Opciones de Género')
+                print('[1] Masculino')
+                print('[2] Femenino')
+                print('[3] Otro')
+                genero = input('Opción Género [1-3]: ')
+                if not validar_genero(genero):
+                    print('Género NO corresponde, no será modificado...')
+                    genero = ''
 
-        modificar_usuario(rut, nombre.title(), apellido.title(), correo,
-                          id_pais, fecha_nacimiento, genero, usuario)
-    else:
-        print('Usuario no encontrado.')
+                modificar_usuario(rut, nombre.title(), apellido.title(
+                ), correo, id_pais, fecha_nacimiento, genero, usuario)
 
 
 def deshabilitar_usuario():
     rut = ""
     print("\nIngrese nuevos datos de usuario")
     print("\nIngrese nuevos datos para actualizar\no Enter para conservar.")
-
+    opcion = ""
     while rut == "":
         rut = input("RUT (12.345.678-5) (o enter para conservar): ")
         if not validar_rut(rut):

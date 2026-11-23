@@ -60,5 +60,6 @@ menu_trabajadores_dict = {
 menu_usuarios_dict = {
     "1": "Mostrar lista de usuarios",
     "2": "Registrar nuevo usuario",
+    "3": "Actualizar datos de usuario",
     "0": "Volver al menú principal"
 }

@@ -25,6 +25,25 @@ def guardar_usuario(datos_usuario: dict) -> bool:
         return False
 
 
+def usuario_por_rut(rut):
+    try:
+        usuario = Usuario()
+        usuario = Usuario.select().where(Usuario.rut == rut).first()
+        if usuario:
+            return usuario
+    except Exception as error:
+        print(f'Ha ocurrido un error: {error}')
+
+
+def usuario_por_id(id):
+    try:
+        usuario = Usuario[id]
+        if usuario:
+            return usuario
+    except Exception as error:
+        print(f'Ha ocurrido un error: {error}')
+
+
 def usuario_por_correo(correo):
     try:
         usuario = Usuario.select().where(Usuario.email == correo)

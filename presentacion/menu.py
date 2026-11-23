@@ -1,15 +1,3 @@
-from auxiliar.auxiliar import (
-    nombre_app,
-    version_app,
-    main_menu,
-    menu_restaurantes_dict,
-    menu_comunas_dict,
-    menu_mesas_dict,
-    menu_reservas_dict,
-    menu_trabajadores_dict
-
-)
-
 # Importamos las funciones de Restaurantes
 from presentacion.presentacion_restaurantes import (
     mostrar_restaurantes,
@@ -47,7 +35,7 @@ from presentacion.presentacion_trabajador import (
 )
 
 
-from presentacion.presentacion_usuarios import mostrar_usuarios, datos_usuario
+from presentacion.presentacion_usuarios import mostrar_usuarios, datos_usuario, actualizar_datos_usuario
 
 
 from auxiliar.auxiliar import (
@@ -141,6 +129,8 @@ def sub_menu_usuarios():
             mostrar_usuarios()
         elif opcion == "2":
             datos_usuario()
+        elif opcion == "3":
+            actualizar_datos_usuario()
         elif opcion == "0":
             break
         else:

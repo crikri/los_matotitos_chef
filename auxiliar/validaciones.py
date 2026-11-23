@@ -1,5 +1,6 @@
 import re
 
+
 def validar_rut(rut):
     """
     Valida un RUT chileno.
@@ -43,6 +44,7 @@ def validar_rut(rut):
 
     return dv == dv_calculado
 
+
 def validar_correo(correo):
     patron_correo = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if not re.match(patron_correo, correo):
@@ -50,9 +52,17 @@ def validar_correo(correo):
         correo = ''
     return correo
 
+
 def validar_contrasenia(contrasenia):
     patron_contrasenia = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$'
     if not re.match(patron_contrasenia, contrasenia):
         print('Su contraseña NO es segura, ingrese nuevamente...')
         contrasenia = ''
     return contrasenia
+
+
+def validar_genero(genero):
+    if genero not in ['1', '2', '3']:
+        return False
+    else:
+        return True

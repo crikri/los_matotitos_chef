@@ -25,6 +25,15 @@ def guardar_usuario(datos_usuario: dict) -> bool:
         return False
 
 
+def actualizar_usuario(usuario: Usuario) -> bool:
+    try:
+        usuario.save()
+        return True
+    except Exception as e:
+        print(f"Error en la base de datos al actualizar usuario: {e}")
+        return False
+
+
 def usuario_por_rut(rut):
     try:
         usuario = Usuario()

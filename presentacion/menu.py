@@ -35,7 +35,7 @@ from presentacion.presentacion_trabajador import (
 )
 
 
-from presentacion.presentacion_usuarios import mostrar_usuarios, datos_usuario, actualizar_datos_usuario
+from presentacion.presentacion_usuarios import mostrar_usuarios, datos_usuario, actualizar_datos_usuario, deshabilitar_usuario
 
 
 from auxiliar.auxiliar import (
@@ -131,6 +131,8 @@ def sub_menu_usuarios():
             datos_usuario()
         elif opcion == "3":
             actualizar_datos_usuario()
+        elif opcion == "4":
+            deshabilitar_usuario()
         elif opcion == "0":
             break
         else:

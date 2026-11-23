@@ -5,7 +5,7 @@ from negocio.negocio_paises import buscar_pais, obtener_id_pais_valido
 from negocio.negocio_usuarios import registrar_nuevo_usuario, modificar_usuario
 from auxiliar.validaciones import validar_rut, validar_correo, validar_genero
 from negocio.negocio_usuarios import cargar_usuarios
-from datos.repositorio.repositorio_usuarios import usuario_por_rut
+from datos.repositorio.repositorio_usuarios import usuario_por_rut, actualizar_usuario
 
 
 def mostrar_usuarios():
@@ -51,7 +51,7 @@ def datos_usuario():
                 print('Id de país NO válido, busque nuevamente...')
 
         while fecha_nacimiento == '':
-            fecha_nacimiento = input('Fecha Nacimiento (dd/MM/aaaa): ')
+            fecha_nacimiento = input('Fecha Nacimiento (dd-MM-aaaa): ')
 
         while genero == '':
             print('Opciones de Género')
@@ -124,24 +124,33 @@ def actualizar_datos_usuario():
 
 
 def deshabilitar_usuario():
-    rut = ""
-    print("\nIngrese nuevos datos de usuario")
-    print("\nIngrese nuevos datos para actualizar\no Enter para conservar.")
-    opcion = ""
-    while rut == "":
-        rut = input("RUT (12.345.678-5) (o enter para conservar): ")
+    rut = opcion = ''
+    print('\nDeshabilitar Usuario')
+
+    while rut == '':
+        rut = input('RUT (12.345.678-5): ')
         if not validar_rut(rut):
-            print("RUT inválido. Intente nuevamente.")
-            rut = ""
+            print('Rut NO VÁLIDO, ingrese nuevamente...')
+            rut = ''
         else:
             usuario = usuario_por_rut(rut)
 
             if usuario:
-                print(f"Usuario encontrado.")
-                print(
-                    f"¿Estas seguro que deseas deshabilitar al usuario {usuario.nombre} {usuario.apellido}?")
-                if opcion.lower == "s":
-                    usuario.habilitado = False
-                    usuario.save()
+                print('Usuario encontrado.')
 
-                    modificar_usuario("", "", "", "", "", "", "", usuario)
+                if not usuario.habilitado:
+                    print('El usuario ya se encuentra deshabilitado.')
+                else:
+                    print(
+                        f'¿Está seguro que desea deshabilitar a {usuario.nombre} {usuario.apellido}?')
+                    opcion = input('Ingrese Si/No [s-n]: ')
+
+                    match opcion.lower():
+                        case 's':
+                            usuario.habilitado = False
+                            if actualizar_usuario(usuario):
+                                print('Usuario deshabilitado con éxito.')
+                        case 'n':
+                            print('No se deshabilitará el usuario...')
+            else:
+                print('Usuario NO encontrado.')

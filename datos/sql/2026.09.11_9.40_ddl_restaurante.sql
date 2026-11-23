@@ -8,6 +8,7 @@ create table comunas(
     id_comuna int auto_increment,
     codigo_comuna char(5) not null,
     comuna varchar(30) not null,
+    habilitado tinyint not null default 1,
 
     constraint pk_comunas primary key (id_comuna)        
 ) COMMENT = 'Listado de comunas de Chile deacuerdo a la SUBDERE';
@@ -31,6 +32,7 @@ create table restaurantes(
     telefono char(12) not null,
     email varchar(50) not null,
     website varchar(50) null,
+    habilitado tinyint not null default 1,
 
     constraint pk_restaurantes primary key (id_restaurantes),
     constraint fk_restaurantes_direcciones foreign key(direccion) references direcciones (id_direccion)
@@ -76,6 +78,7 @@ create table mesas(
     estado char(1) not null,
     restaurante integer not null,
     numero_mesa char(5) not null,
+    habilitado tinyint not null default 1,
 
     constraint pk_mesas primary key (id_mesa)
 ) comment = 'Tabla para guardar las mesas de los restaurantes';
@@ -99,6 +102,7 @@ create table reservas(
     hora_inicio time not null,
     hora_termino time not null,
     cantidad_personas integer not null,
+    habilitado tinyint not null default 1,
 
     constraint pk_reservas primary key (id_reserva),
     constraint fk_reservas_clientes foreign key(cliente) references clientes (id_cliente),
@@ -118,6 +122,7 @@ create table trabajadores(
     telefono char(12) not null,
     email varchar(50) not null,
     restaurante integer not null,
+    habilitado tinyint not null default 1,
 
     constraint pk_trabajadores primary key (id_trabajador),
     constraint fk_trabajadores_paises foreign key(nacionalidad) references paises (id_pais),
@@ -158,15 +163,14 @@ create table usuarios(
     rut varchar(12) not null unique,
     nombre varchar(25) not null,
     apellido varchar(25) not null,
-    correo varchar(255) not null,
+    email varchar(191) character set utf8mb4 collate utf8mb4_unicode_ci not null unique,
     pais integer null,
     fecha_nacimiento date null,
     genero integer not null,
     fecha_incorporacion date not null,
-    habilitado boolean default true,
+    habilitado boolean not null default true,
     password varchar(60) null,
-    email varchar(255) null,
-    
+
     constraint pk_usuarios primary key (id_usuario),
     constraint fk_usuarios_paises foreign key(pais) references paises (id_pais)
 ) comment = 'Tabla para guardar los usuarios del sistema';

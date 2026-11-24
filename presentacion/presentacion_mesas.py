@@ -1,6 +1,7 @@
 from negocio.negocio_mesas import obtener_datos_mesa, cargar_mesas, crear_mesa, buscar_mesas
 from prettytable import PrettyTable
 from datos.repositorio.repositorio_mesas import mesa_por_id, guardar_mesa
+from presentacion.presentacion_restaurantes import mostrar_restaurantes
 
 
 def mostrar_mesas():
@@ -12,6 +13,7 @@ def mostrar_mesas():
 def datos_mesa_crear():
     capacidad = input("Ingrese capacidad de la mesa: ")
     estado = input("Ingrese estado (ej. D=Disponible, O=Ocupada): ")
+    mostrar_restaurantes()
     restaurante = input("Ingrese ID del restaurante al que pertenece: ")
     numero_mesa = input("Ingrese número o código de mesa: ")
     crear_mesa(capacidad, estado, restaurante, numero_mesa)

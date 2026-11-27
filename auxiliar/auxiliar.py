@@ -12,7 +12,7 @@ main_menu = {
     "3": "Gestión de Mesas",
     "4": "Gestión de Reservas",
     "5": "Gestión de Trabajadores",
-    "6": "Gestión de Usuarios",
+    "6": "Gestión de Usuarios/Clientes",
     "0": "Salir"
 }
 

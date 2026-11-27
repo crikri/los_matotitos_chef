@@ -3,6 +3,7 @@ from presentacion.presentacion_clientes import seleccionar_cliente
 from negocio.negocio_reservas import cargar_reservas, crear_reserva
 from prettytable import PrettyTable
 from datos.repositorio.repositorio_reservas import reserva_por_id, guardar_reserva
+from presentacion.presentacion_mesas import mostrar_mesas
 
 
 def mostrar_reservas():
@@ -23,6 +24,7 @@ def datos_reserva_crear():
     fecha = input("Fecha (YYYY-MM-DD): ")
     inicio = input("Hora de inicio (HH:MM): ")
     termino = input("Hora de término (HH:MM): ")
+    mostrar_mesas()
     mesa = input("ID de la Mesa: ")
 
     crear_reserva(cant, cliente, estado, fecha, inicio, termino, mesa)

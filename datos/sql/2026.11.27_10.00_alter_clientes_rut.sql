@@ -1,5 +1,0 @@
-ALTER TABLE clientes ADD COLUMN rut VARCHAR(12) NULL UNIQUE AFTER id_cliente;
-ALTER TABLE clientes ADD COLUMN habilitado TINYINT NOT NULL DEFAULT 1;
-ALTER TABLE clientes MODIFY fecha_nacimiento DATE NULL;
-ALTER TABLE clientes MODIFY nacionalidad INTEGER NULL;
-ALTER TABLE clientes MODIFY direccion INTEGER NULL;

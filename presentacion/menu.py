@@ -37,6 +37,14 @@ from presentacion.presentacion_trabajador import (
 )
 
 
+# Importamos las funciones de Clientes
+from presentacion.presentacion_clientes import (
+    mostrar_clientes,
+    datos_cliente_crear,
+    modificar_cliente,
+    eliminar_cliente
+)
+
 from presentacion.presentacion_usuarios import mostrar_usuarios, datos_usuario, actualizar_datos_usuario, deshabilitar_usuario
 
 
@@ -49,7 +57,8 @@ from auxiliar.auxiliar import (
     menu_mesas_dict,
     menu_reservas_dict,
     menu_trabajadores_dict,
-    menu_usuarios_dict
+    menu_usuarios_dict,
+    menu_clientes_dict
 )
 
 
@@ -158,6 +167,8 @@ def menu_principal():
             sub_menu_trabajadores()
         elif opcion == "6":
             sub_menu_usuarios()
+        elif opcion == "7":
+            sub_menu_clientes()
         elif opcion == "0":
             print(f"\nSaliendo de {nombre_app}... ¡Hasta pronto!")
             break
@@ -198,6 +209,25 @@ def sub_menu_trabajadores():
             modificar_trabajador()
         elif opcion == "4":
             eliminar_trabajador()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida.")
+
+
+def sub_menu_clientes():
+    while True:
+        dibujar_menu("Gestión de Clientes", menu_clientes_dict)
+        opcion = input("Seleccione una opción: ").strip()
+
+        if opcion == "1":
+            mostrar_clientes()
+        elif opcion == "2":
+            datos_cliente_crear()
+        elif opcion == "3":
+            modificar_cliente()
+        elif opcion == "4":
+            eliminar_cliente()
         elif opcion == "0":
             break
         else:

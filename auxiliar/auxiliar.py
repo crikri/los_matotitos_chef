@@ -12,7 +12,8 @@ main_menu = {
     "3": "Gestión de Mesas",
     "4": "Gestión de Reservas",
     "5": "Gestión de Trabajadores",
-    "6": "Gestión de Usuarios/Clientes",
+    "6": "Gestión de Usuarios",
+    "7": "Gestión de Clientes",
     "0": "Salir"
 }
 
@@ -63,4 +64,12 @@ menu_usuarios_dict = {
     "3": "Actualizar datos de usuario",
     "4": "Deshabilitar usuario",
     "0": "Volver al menú principal"
+}
+
+menu_clientes_dict = {
+    "1": "Listar Clientes",
+    "2": "Agregar Cliente",
+    "3": "Modificar Cliente",
+    "4": "Eliminar Cliente (Lógico)",
+    "0": "Volver al Menú Principal"
 }

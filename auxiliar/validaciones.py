@@ -22,6 +22,9 @@ def validar_rut(rut):
     cuerpo = rut[:-1]
     dv = rut[-1].upper()
 
+    if not cuerpo.isdigit():
+        return False
+
     # Calcular el dígito verificador esperado
     suma = 0
     multiplicador = 2
@@ -43,6 +46,13 @@ def validar_rut(rut):
         dv_calculado = str(dv_calculado)
 
     return dv == dv_calculado
+
+
+def normalizar_rut(rut):
+    """Deja el RUT siempre como 12345678-5 (sin puntos, con guion y DV en mayúscula),
+    para que la búsqueda por RUT funcione sin importar cómo lo escriba el usuario."""
+    rut = rut.replace(".", "").replace("-", "").strip().upper()
+    return f"{rut[:-1]}-{rut[-1]}"
 
 
 def validar_correo(correo):

@@ -1,4 +1,5 @@
 from datetime import datetime
+from presentacion.presentacion_clientes import seleccionar_cliente
 from negocio.negocio_reservas import cargar_reservas, crear_reserva
 from prettytable import PrettyTable
 from datos.repositorio.repositorio_reservas import reserva_por_id, guardar_reserva
@@ -14,7 +15,10 @@ def mostrar_reservas():
 def datos_reserva_crear():
     print("\n--- REGISTRAR NUEVA RESERVA ---")
     cant = input("Cantidad de personas: ")
-    cliente = input("ID del Cliente: ")
+    cliente = seleccionar_cliente()
+    if cliente is None:
+        print("No se registró la reserva: falta el cliente.")
+        return
     estado = input("ID del Estado de reserva: ")
     fecha = input("Fecha (YYYY-MM-DD): ")
     inicio = input("Hora de inicio (HH:MM): ")
@@ -50,8 +54,13 @@ def modificar_reserva():
 
     cantidad_nueva = input(
         "Ingrese nueva cantidad de personas (o ENTER para conservar): ")
-    cliente_nuevo = input(
-        "Ingrese nuevo ID de cliente (o ENTER para conservar): ")
+    cambiar_cliente = input(
+        "¿Cambiar el cliente por otro RUT? (s o ENTER para conservar): ")
+    cliente_nuevo = ''
+    if cambiar_cliente.lower() == 's':
+        id_nuevo = seleccionar_cliente()
+        if id_nuevo is not None:
+            cliente_nuevo = str(id_nuevo)
     estado_nuevo = input("Ingrese nuevo estado (o ENTER para conservar): ")
     fecha_nueva = input(
         "Ingrese nueva fecha YYYY-MM-DD (o ENTER para conservar): ")

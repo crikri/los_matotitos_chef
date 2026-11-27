@@ -50,19 +50,20 @@ create table paises (
 
 create table clientes(
     id_cliente integer auto_increment,
+    rut varchar(12) null unique,
     nombre varchar(50) not null,
     apellido varchar(50) not null,
-    fecha_nacimiento date not null,
-    nacionalidad integer not null,
-    direccion integer not null,
+    fecha_nacimiento date null,
+    nacionalidad integer null,
+    direccion integer null,
     telefono char(12) not null,
     email varchar(50) not null,
+    habilitado tinyint not null default 1,
 
     constraint pk_clientes primary key (id_cliente),
     constraint fk_clientes_paises foreign key(nacionalidad) references paises (id_pais),
     constraint fk_clientes_direcciones foreign key(direccion) references direcciones (id_direccion)
 ) comment = 'Tabla para guardar los clientes del restaurante';
-
 create table estado_reserva(
     id_estado integer auto_increment,
     estado varchar(20) not null,

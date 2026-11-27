@@ -1,15 +1,16 @@
 from datos.repositorio.repositorio_reservas import listado_reservas, guardar_reserva, reserva_por_id
 from prettytable import PrettyTable
 from datos.modelos.reserva import Reserva
+from negocio.negocio_clientes import nombre_cliente
 
 def cargar_reservas(tabla: PrettyTable):
     reservas_db = listado_reservas()
-    tabla.field_names = ['ID', 'Personas', 'ID Cliente', 'ID Mesa', 'Fecha', 'Inicio', 'Término']
+    tabla.field_names = ['ID', 'Personas', 'Cliente', 'ID Mesa', 'Fecha', 'Inicio', 'Término']
 
     if reservas_db:
         for r in reservas_db:
             tabla.add_row([
-                r.id_reserva, r.cantidad_personas, r.cliente, 
+                r.id_reserva, r.cantidad_personas, nombre_cliente(r.cliente), 
                 r.mesa, r.fecha, r.hora_inicio, r.hora_termino
             ])
     return tabla
@@ -27,4 +28,4 @@ def crear_reserva(cant_personas, cliente, estado, fecha, hora_inicio, hora_termi
     
     resultado = guardar_reserva(nueva_reserva)
     if resultado == 1:
-        print(f'Se ha guardado la reserva con ID: {nueva_reserva.id_reserva}')
+        print(f'Se ha guardado la reserva con ID: {nueva_reserva.id_reserva}')
